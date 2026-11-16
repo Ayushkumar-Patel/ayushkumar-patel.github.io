@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Patel | Cybersecurity Portfolio</title>
+<meta name="description" content="Ayush Patel — Security+ certified, based in Winnipeg. SOC home labs in SIEM monitoring, threat detection and network security.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #05080b;
+    --panel: #0a1016;
+    --panel-2: #0e161e;
+    --line: rgba(61, 220, 132, 0.14);
+    --line-strong: rgba(61, 220, 132, 0.32);
+    --text: #d9e4ec;
+    --muted: #8b9aa8;
+    --dim: #5b6b7a;
+    --accent: #3ddc84;
+    --accent-soft: rgba(61, 220, 132, 0.1);
+    --cyan: #38d6f5;
+    --amber: #f0b429;
+    --radius: 8px;
+    --nav-h: 64px;
+    --max: 1120px;
+    --sans: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; font-family: var(--sans); color: var(--text); line-height: 1.6; background-color: var(--bg);
+    background-image:
+      radial-gradient(900px 480px at 85% -5%, rgba(61, 220, 132, 0.09), transparent 60%),
+      radial-gradient(700px 400px at 0% 30%, rgba(56, 214, 245, 0.05), transparent 60%),
+      linear-gradient(rgba(61, 220, 132, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(61, 220, 132, 0.035) 1px, transparent 1px);
+    background-size: auto, auto, 44px 44px, 44px 44px;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3, p, figure { margin: 0; }
+  ::selection { background: var(--accent); color: #031208; }
+  .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 clamp(18px, 4vw, 32px); }
+  .i { width: 16px; height: 16px; flex: none; display: inline-block; vertical-align: -3px; }
+  .mono { font-family: var(--mono); }
+
+  /* Corner-bracket frame */
+  .frame { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+  .frame::before, .frame::after {
+    content: ""; position: absolute; width: 14px; height: 14px; pointer-events: none;
+    border-color: var(--accent); border-style: solid; opacity: .8;
+  }
+  .frame::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-top-left-radius: var(--radius); }
+  .frame::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-bottom-right-radius: var(--radius); }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 6px;
+    font-family: var(--mono); font-weight: 500; font-size: 14px; border: 1px solid var(--line-strong);
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .btn-primary { background: var(--accent); color: #031208; border-color: var(--accent); font-weight: 700; }
+  .btn-primary:hover { background: #63e89d; }
+  .btn-ghost { color: var(--text); background: rgba(10, 16, 22, 0.6); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Nav */
+  header {
+    position: fixed; inset: 0 0 auto 0; height: var(--nav-h); z-index: 20;
+    background: rgba(5, 8, 11, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 15px; }
+  .brand .i { width: 22px; height: 22px; color: var(--accent); }
+  .brand b { color: var(--accent); font-weight: 700; }
+  .brand span { color: var(--muted); }
+  .nav { display: flex; gap: 2px; }
+  .nav a { padding: 8px 12px; border-radius: 6px; color: var(--muted); font-family: var(--mono); font-size: 13.5px; }
+  .nav a::before { content: "./"; color: var(--dim); }
+  .nav a:hover { color: var(--accent); background: var(--accent-soft); }
+  .menu-btn {
+    display: none; background: none; border: 1px solid var(--line-strong); color: var(--text);
+    width: 40px; height: 40px; border-radius: 6px; cursor: pointer; place-items: center;
+  }
+  .menu-btn .i { width: 20px; height: 20px; }
+
+  /* Hero */
+  main { padding-top: var(--nav-h); }
+  .hero { padding: clamp(56px, 9vw, 96px) 0 48px; }
+  .hero-inner { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(220px, .75fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+  .tag-line {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; padding: 5px 12px;
+    border: 1px solid var(--line-strong); border-radius: 4px; background: var(--accent-soft);
+    color: var(--accent); font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  }
+  .tag-line .i { width: 14px; height: 14px; }
+  .name { font-family: var(--mono); font-weight: 800; font-size: clamp(36px, 6.2vw, 64px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; color: #fff; }
+  .name .hl { color: var(--accent); }
+  .role { font-family: var(--mono); font-size: clamp(15px, 2.1vw, 18px); margin-bottom: 18px; min-height: 1.6em; color: var(--cyan); }
+  .role .pre { color: var(--accent); }
+  .caret { display: inline-block; width: 9px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .tagline { color: var(--muted); font-size: 17.5px; max-width: 36rem; margin-bottom: 30px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .photo { justify-self: end; width: 100%; max-width: 330px; }
+  .shot { position: relative; padding: 14px; }
+  .photo img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 6px; filter: saturate(.92) contrast(1.03); border: 1px solid var(--line-strong); }
+  .lock { position: absolute; width: 34px; height: 34px; border-color: var(--accent); border-style: solid; }
+  .lock.tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+  .lock.tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+  .lock.bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+  .lock.br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+  .photo figcaption {
+    display: flex; justify-content: space-between; gap: 8px; margin-top: 6px; padding: 0 14px;
+    font-family: var(--mono); font-size: 11.5px; color: var(--dim); letter-spacing: .06em;
+  }
+  .photo figcaption b { color: var(--accent); font-weight: 500; }
+
+  /* Metrics */
+  .metrics { padding: 8px 0 24px; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .metric { padding: 22px 24px; border-right: 1px solid var(--line); }
+  .metric:last-child { border-right: none; }
+  .metric .v { font-family: var(--mono); font-weight: 700; font-size: 34px; line-height: 1; margin-bottom: 8px; color: var(--accent); }
+  .metric .l { color: var(--muted); font-size: 14px; }
+
+  /* Sections */
+  .section { padding: clamp(56px, 8vw, 88px) 0; }
+  .section-head { margin-bottom: 30px; max-width: 42rem; }
+  .path { font-family: var(--mono); font-size: 13px; color: var(--dim); margin-bottom: 8px; }
+  .path .u { color: var(--accent); }
+  .path .d { color: var(--cyan); }
+  .section-title { font-family: var(--mono); font-weight: 700; font-size: clamp(28px, 4.2vw, 38px); line-height: 1.15; color: #fff; margin-bottom: 10px; letter-spacing: -0.02em; }
+  .section-lead { color: var(--muted); font-size: 16.5px; }
+
+  /* Projects */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .project { display: flex; flex-direction: column; overflow: hidden; transition: border-color .2s; }
+  .project:hover { border-color: var(--line-strong); }
+  .win-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--panel-2); font-family: var(--mono); font-size: 12px; color: var(--dim); }
+  .win-bar i { width: 10px; height: 10px; border-radius: 50%; background: #1f2b36; }
+  .win-bar i:first-child { background: #f07178; } .win-bar i:nth-child(2) { background: var(--amber); } .win-bar i:nth-child(3) { background: var(--accent); }
+  .win-bar span { margin-left: 8px; }
+  .topo {
+    margin: 0; padding: 16px 18px; border-bottom: 1px solid var(--line); background: #070b0f;
+    font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.75; white-space: pre; overflow-x: auto;
+  }
+  .topo .ip { color: var(--accent); } .topo .c { color: var(--dim); }
+  .project-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 4px;
+    border: 1px solid var(--line); background: var(--accent-soft); color: var(--text); font-family: var(--mono); font-size: 12px;
+  }
+  .chip .i { width: 13px; height: 13px; color: var(--accent); vertical-align: 0; }
+  .project h3 { font-size: 19px; font-weight: 600; margin-bottom: 10px; line-height: 1.35; color: #fff; }
+  .project p { color: var(--muted); margin-bottom: 14px; font-size: 15.5px; }
+  .project ul { margin: 0 0 20px; padding: 0; list-style: none; font-size: 15px; }
+  .project li { padding-left: 20px; position: relative; margin-bottom: 7px; }
+  .project li::before { content: ">"; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+  .project .link { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-family: var(--mono); font-size: 14px; }
+  .project .link:hover { text-decoration: underline; }
+
+  /* Toolkit */
+  .caps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .cap { padding: 20px; }
+  .cap h3 { font-family: var(--mono); font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 14px; display: flex; align-items: baseline; gap: 8px; }
+  .cap h3 .n { color: var(--accent); }
+  .cap ul { list-style: none; padding: 0; margin: 0; }
+  .cap li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px dashed var(--line); color: var(--text); font-size: 14.5px; }
+  .cap li:first-child { border-top: none; }
+  .cap li .i { width: 18px; height: 18px; color: var(--accent); }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 56px); align-items: start; }
+  .about-copy p:not(.path) { color: var(--muted); font-size: 16.5px; margin-bottom: 16px; }
+  .about-copy strong { color: var(--text); font-weight: 600; }
+  .steps { display: grid; gap: 12px; }
+  .step { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 16px; }
+  .step .ico { width: 42px; height: 42px; border-radius: 6px; display: grid; place-items: center; background: var(--accent-soft); border: 1px solid var(--line-strong); color: var(--accent); }
+  .step .ico .i { width: 20px; height: 20px; }
+  .step h3 { font-family: var(--mono); font-size: 15px; color: #fff; }
+  .step h3 span { color: var(--accent); }
+  .step .meta { font-family: var(--mono); font-size: 12px; color: var(--cyan); margin: 2px 0 4px; }
+  .step p { color: var(--muted); font-size: 14.5px; }
+
+  /* Certs */
+  .certs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .cert { padding: 20px; display: flex; flex-direction: column; }
+  .cert-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .cert-top .ico { width: 40px; height: 40px; border-radius: 6px; display: grid; place-items: center; background: var(--accent-soft); border: 1px solid var(--line-strong); color: var(--accent); flex: none; }
+  .cert-top .ico .i { width: 20px; height: 20px; }
+  .cert .type { font-family: var(--mono); font-size: 11.5px; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; }
+  .cert h3 { font-size: 16px; font-weight: 600; line-height: 1.35; margin-bottom: 6px; color: #fff; }
+  .cert p { color: var(--muted); font-size: 14px; }
+  .cert .code { font-family: var(--mono); font-size: 11.5px; color: var(--dim); margin-top: 8px; word-break: break-all; }
+  .cert-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 16px; }
+  .cert-actions .view, .cert-actions .verify {
+    display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12.5px; padding: 7px 12px; border-radius: 4px; cursor: pointer;
+    border: 1px solid var(--line-strong); background: var(--accent-soft); color: var(--accent);
+  }
+  .cert-actions .verify { background: transparent; color: var(--text); }
+  .cert-actions .view:hover, .cert-actions .verify:hover { border-color: var(--accent); }
+  .cert-actions .i { width: 14px; height: 14px; vertical-align: 0; }
+
+  .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(2, 4, 6, 0.88); backdrop-filter: blur(4px); }
+  .modal[hidden] { display: none; }
+  .modal-box { width: min(920px, 100%); max-height: 92vh; overflow: auto; }
+  .modal-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 13px; }
+  .modal-close { background: none; border: 1px solid var(--line-strong); color: var(--text); width: 34px; height: 34px; border-radius: 6px; cursor: pointer; display: grid; place-items: center; }
+  .modal img { display: block; width: 100%; height: auto; background: #fff; }
+
+  /* Contact */
+  .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(26px, 5vw, 42px); background: linear-gradient(135deg, rgba(61, 220, 132, 0.08), var(--panel) 55%); }
+  .cta .section-title { margin-bottom: 8px; }
+  .cta p { color: var(--muted); }
+  .cta .email { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 14px; color: var(--text); margin-top: 12px; }
+  .cta .email .i { color: var(--accent); }
+
+  footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--dim); font-family: var(--mono); font-size: 13px; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+  .foot-links { display: flex; gap: 10px; }
+  .foot-links a { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); }
+  .foot-links a:hover { color: var(--accent); border-color: var(--accent); }
+  .foot-links .i { width: 17px; height: 17px; }
+
+  /* Responsive */
+  @media (max-width: 980px) { .caps { grid-template-columns: repeat(2, 1fr); } .certs { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 820px) {
+    .hero-inner, .about-grid, .projects { grid-template-columns: 1fr; }
+    .photo { justify-self: center; max-width: 250px; order: -1; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .metric:nth-child(2) { border-right: none; }
+    .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 720px) {
+    .menu-btn { display: grid; }
+    .nav { display: none; position: absolute; top: var(--nav-h); left: 0; right: 0; flex-direction: column; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: 6px clamp(18px, 4vw, 32px) 14px; }
+    .nav.open { display: flex; }
+    .nav a { padding: 12px 4px; border-radius: 0; border-bottom: 1px dashed var(--line); }
+  }
+  @media (max-width: 520px) {
+    .caps, .certs { grid-template-columns: 1fr; }
+    .metric { padding: 18px; } .metric .v { font-size: 28px; }
+    .ctas .btn { flex: 1; justify-content: center; }
+    .brand span { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .caret { animation: none; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-kali" viewBox="0 0 24 24"><path fill="currentColor" d="M12.778 5.943s-1.97-.13-5.327.92c-3.42 1.07-5.36 2.587-5.36 2.587s5.098-2.847 10.852-3.008zm7.351 3.095l.257-.017s-1.468-1.78-4.278-2.648c1.58.642 2.954 1.493 4.021 2.665zm.42.74c.039-.068.166.217.263.337.004.024.01.039-.045.027-.005-.025-.013-.032-.013-.032s-.135-.08-.177-.137c-.041-.057-.049-.157-.028-.195zm3.448 8.479s.312-3.578-5.31-4.403a18.277 18.277 0 0 0-2.524-.187c-4.506.06-4.67-5.197-1.275-5.462 1.407-.116 3.087.643 4.73 1.408-.007.204.002.385.136.552.134.168.648.35.813.445.164.094.691.43 1.014.85.07-.131.654-.512.654-.512s-.14.003-.465-.119c-.326-.122-.713-.49-.722-.511-.01-.022-.015-.055.06-.07.059-.049-.072-.207-.13-.265-.058-.058-.445-.716-.454-.73-.009-.016-.012-.031-.04-.05-.085-.027-.46.04-.46.04s-.575-.283-.774-.893c.003.107-.099.224 0 .469-.3-.127-.558-.344-.762-.88-.12.305 0 .499 0 .499s-.707-.198-.82-.85c-.124.293 0 .469 0 .469s-1.153-.602-3.069-.61c-1.283-.118-1.55-2.374-1.43-2.754 0 0-1.85-.975-5.493-1.406-3.642-.43-6.628-.065-6.628-.065s6.45-.31 11.617 1.783c.176.785.704 2.094.989 2.723-.815.563-1.733 1.092-1.876 2.97-.143 1.878 1.472 3.53 3.474 3.58 1.9.102 3.214.116 4.806.942 1.52.84 2.766 3.4 2.89 5.703.132-1.709-.509-5.383-3.5-6.498 4.181.732 4.549 3.832 4.549 3.832zM12.68 5.663l-.15-.485s-2.484-.441-5.822-.204C3.37 5.211 0 6.38 0 6.38s6.896-1.735 12.68-.717Z"/></symbol>
+<symbol id="i-wireshark" viewBox="0 0 24 24"><path fill="currentColor" d="m2.95 0c-1.62 0-2.95 1.32-2.95 2.95v18.1c0 1.63 1.32 2.95 2.95 2.95h18.1c1.62 0 2.95-1.32 2.95-2.95v-18.1c-.00024-1.63-1.32-2.95-2.95-2.95zm0 1.09h18.1c1.04 0 1.85.818 1.85 1.86v14h-5.27c-.335-.796-2.57-6.47.283-10.9a.516.517 0 0 0-.443-.794c-5.24.0827-8.2 3.19-9.74 6.21-1.35 2.64-1.63 4.91-1.69 5.53h-4.95v-14c0-1.04.817-1.86 1.85-1.86zm13.6 5.24c-2.62 5.24.248 11.4.248 11.4a.516.517 0 0 0 .469.301h5.62v3.05c0 1.04-.817 1.86-1.85 1.86h-18.1c-1.04 0-1.85-.818-1.85-1.86v-3.05h5.39a.516.517 0 0 0 .514-.477s.226-2.8 1.66-5.62c1.34-2.62 3.67-5.17 7.91-5.57z"/></symbol>
+<symbol id="i-ubuntu" viewBox="0 0 24 24"><path fill="currentColor" d="M17.61.455a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zM12.92.8C8.923.777 5.137 2.941 3.148 6.451a4.5 4.5 0 0 1 .26-.007 4.92 4.92 0 0 1 2.585.737A8.316 8.316 0 0 1 12.688 3.6 4.944 4.944 0 0 1 13.723.834 11.008 11.008 0 0 0 12.92.8zm9.226 4.994a4.915 4.915 0 0 1-1.918 2.246 8.36 8.36 0 0 1-.273 8.303 4.89 4.89 0 0 1 1.632 2.54 11.156 11.156 0 0 0 .559-13.089zM3.41 7.932A3.41 3.41 0 0 0 0 11.342a3.41 3.41 0 0 0 3.41 3.409 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zm2.027 7.866a4.908 4.908 0 0 1-2.915.358 11.1 11.1 0 0 0 7.991 6.698 11.234 11.234 0 0 0 2.422.249 4.879 4.879 0 0 1-.999-2.85 8.484 8.484 0 0 1-.836-.136 8.304 8.304 0 0 1-5.663-4.32zm11.405.928a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41z"/></symbol>
+<symbol id="i-jira" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></symbol>
+<symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+<symbol id="i-comptia" viewBox="0 0 24 24"><path fill="currentColor" d="M11.8292 11.7067v1.8524a.608.608 0 0 1-.6016-.6136v-1.2366a.5728.5728 0 0 0-1.1428 0v1.8502a.5988.5988 0 0 1-.5998-.5978v-1.2524a.5746.5746 0 0 0-1.1455 0v1.2431a.608.608 0 0 1-.5998.6071V11.709c.0097-.6352.5325-1.1422 1.1676-1.1325h.0013c.331-.0046.6486.1302.8754.3713a1.1752 1.1752 0 0 1 .868-.3713c.6372-.013 1.1642.493 1.1772 1.1303zm7.0156-2.2917v3.563a.597.597 0 0 0 .6006.5811v-3.563a.5969.5969 0 0 0-.6006-.5811zM24 13.5258c-.324.0269-.675-.0697-.8011-.3435l-.3185-.6852h-2.1306l-.3157.7037c-.1494.2785-.544.3667-.8476.3667l1.738-3.8063a.5292.5292 0 0 1 .4762-.3435.5367.5367 0 0 1 .481.3435L24 13.5258zm-1.3759-1.6182-.8059-1.7671-.8038 1.767h1.6097zm-19.166.6387a1.8463 1.8463 0 0 1-1.1817.4373c-.9312 0-1.6888-.6824-1.6888-1.5133s.7604-1.5058 1.6888-1.5058c.501.0002.98.2055 1.3257.5682a.5812.5812 0 0 0 .7417.0827c-.362-.7502-1.1763-1.2376-2.0693-1.2376C1.0212 9.3778 0 10.3164 0 11.4722c0 1.1558 1.0175 2.0953 2.2745 2.0953a2.3846 2.3846 0 0 0 1.2885-.3713c.2605-.162.4823-.379.6499-.636a.5886.5886 0 0 0-.7548-.0139zm11.43-2.539h1.2877v2.9512a.5904.5904 0 0 0 .5728.6006h.0278v-3.5518h1.284a.5941.5941 0 0 0 .5932-.5932h-4.3503a.5904.5904 0 0 0 .5848.5932zm-7.3108 2.0665c0 .8364-.726 1.4853-1.6507 1.4853-.9283 0-1.6505-.6498-1.6505-1.4853s.725-1.4947 1.6505-1.4947c.9256 0 1.6507.6583 1.6507 1.4947zm-.6007-.0028c0-.5004-.4641-.894-1.05-.894-.5876 0-1.0509.3927-1.0509.894 0 .5013.4643.8875 1.051.8875s1.05-.387 1.05-.8875zm6.7975-1.5002c-.9506 0-1.6395.6433-1.6395 1.5178v2.5335a.596.596 0 0 0 .6016-.5857v-1.9496c0-.6313.5162-.9172 1.038-.9172.5486 0 .9812.3982.9812.9051 0 .4874-.4326.8754-.9813.8754-.3686 0-.6452-.0928-.8132-.2785v.0056a.7503.7503 0 0 0-.0381.1068.596.596 0 0 0 .4112.7241c.1462.0314.2953.0463.4447.0446.8885 0 1.581-.6508 1.5736-1.4761a1.4647 1.4647 0 0 0-.4642-1.075 1.642 1.642 0 0 0-1.114-.4308z"/></symbol>
+<symbol id="i-tryhackme" viewBox="0 0 24 24"><path fill="currentColor" d="M10.705 0C7.54 0 4.902 2.285 4.349 5.291a4.525 4.525 0 0 0-4.107 4.5 4.525 4.525 0 0 0 4.52 4.52h6.761a.625.625 0 1 0 0-1.25H4.761a3.273 3.273 0 0 1-3.27-3.27A3.273 3.273 0 0 1 6.59 7.08a.625.625 0 0 0 .7-1.035 4.488 4.488 0 0 0-1.68-.69 5.223 5.223 0 0 1 5.096-4.104 5.221 5.221 0 0 1 5.174 4.57 4.489 4.489 0 0 0-.488.305.625.625 0 1 0 .731 1.013 3.245 3.245 0 0 1 1.912-.616 3.278 3.278 0 0 1 3.203 2.61.625.625 0 0 0 1.225-.251 4.533 4.533 0 0 0-4.428-3.61 4.54 4.54 0 0 0-.958.105C16.556 2.328 13.9 0 10.705 0zm5.192 10.64a.925.925 0 0 0-.462.108.913.913 0 0 0-.313.29 1.27 1.27 0 0 0-.175.427 2.39 2.39 0 0 0-.054.514c0 .181.018.353.054.517.036.164.095.307.175.43a.899.899 0 0 0 .313.297c.127.073.281.11.462.11.18 0 .334-.037.46-.11a.897.897 0 0 0 .309-.296c.08-.124.137-.267.173-.431.036-.164.054-.336.054-.517 0-.18-.018-.352-.054-.514a1.271 1.271 0 0 0-.173-.426.901.901 0 0 0-.309-.291.917.917 0 0 0-.46-.108zm6.486 0a.925.925 0 0 0-.462.108.913.913 0 0 0-.313.29 1.27 1.27 0 0 0-.175.427 2.39 2.39 0 0 0-.053.514c0 .181.017.353.053.517.036.164.095.307.175.43a.899.899 0 0 0 .313.297c.127.073.281.11.462.11.18 0 .334-.037.46-.11a.897.897 0 0 0 .31-.296c.078-.124.136-.267.172-.431.036-.164.054-.336.054-.517 0-.18-.018-.352-.054-.514a1.271 1.271 0 0 0-.173-.426.901.901 0 0 0-.308-.291.916.916 0 0 0-.461-.108zm-8.537.068l-.84.618.313.43.476-.368v1.877h.603v-2.557zm6.486 0l-.841.618.314.43.477-.368v1.877h.603v-2.557zm-4.435.445c.08 0 .143.028.193.084.05.057.087.127.114.21.026.083.044.173.054.269a2.541 2.541 0 0 1 0 .533c-.01.097-.028.187-.054.27a.584.584 0 0 1-.114.21.243.243 0 0 1-.193.085.248.248 0 0 1-.195-.086.584.584 0 0 1-.118-.209 1.245 1.245 0 0 1-.056-.27 2.645 2.645 0 0 1 0-.533c.01-.096.029-.186.056-.27a.583.583 0 0 1 .118-.209.25.25 0 0 1 .195-.084zm6.486 0c.08 0 .144.028.193.084.05.057.087.127.114.21.027.083.044.173.054.269a2.541 2.541 0 0 1 0 .533c-.01.097-.027.187-.054.27a.584.584 0 0 1-.114.21.243.243 0 0 1-.193.085.249.249 0 0 1-.195-.086.581.581 0 0 1-.117-.209 1.245 1.245 0 0 1-.056-.27 2.642 2.642 0 0 1 0-.533c.01-.096.028-.186.056-.27a.58.58 0 0 1 .117-.209.25.25 0 0 1 .195-.084zm-2.191 3.51a.93.93 0 0 0-.463.109.908.908 0 0 0-.312.291c-.08.122-.139.263-.175.426a2.383 2.383 0 0 0-.054.514c0 .18.018.353.054.516.036.164.094.308.175.432a.91.91 0 0 0 .312.296.92.92 0 0 0 .463.11c.18 0 .333-.037.46-.11a.892.892 0 0 0 .308-.296 1.32 1.32 0 0 0 .174-.432c.036-.163.054-.335.054-.516 0-.18-.018-.352-.054-.514a1.274 1.274 0 0 0-.174-.426.89.89 0 0 0-.309-.291.918.918 0 0 0-.46-.108zm-6.402.07l-.841.617.314.43.476-.369v1.878h.604v-2.557zm2.125 0l-.841.617.314.43.477-.369v1.878h.603v-2.557zm2.116 0l-.84.617.313.43.477-.369v1.878h.603v-2.557zm2.16.443c.08 0 .144.028.194.085a.605.605 0 0 1 .114.21c.026.083.044.172.053.269a2.639 2.639 0 0 1 0 .532 1.28 1.28 0 0 1-.053.27.585.585 0 0 1-.114.21.244.244 0 0 1-.193.085.25.25 0 0 1-.196-.085.589.589 0 0 1-.117-.21 1.245 1.245 0 0 1-.056-.27 2.597 2.597 0 0 1 0-.532c.01-.097.028-.186.056-.27a.589.589 0 0 1 .117-.209.249.249 0 0 1 .196-.085zm-6.729 3.073a.676.676 0 0 0-.335.078.661.661 0 0 0-.227.211.91.91 0 0 0-.127.31c-.027.118-.04.242-.04.373s.013.256.04.375a.93.93 0 0 0 .127.313.65.65 0 0 0 .227.215c.092.053.204.08.335.08a.655.655 0 0 0 .334-.08.65.65 0 0 0 .225-.215c.057-.09.1-.194.125-.313a1.75 1.75 0 0 0 .04-.375c0-.13-.014-.255-.04-.373a.931.931 0 0 0-.125-.31.658.658 0 0 0-.225-.21.667.667 0 0 0-.334-.08zm3.086 0a.675.675 0 0 0-.336.078.661.661 0 0 0-.226.211.907.907 0 0 0-.127.31 1.69 1.69 0 0 0-.04.373c0 .131.013.256.04.375a.928.928 0 0 0 .127.313c.058.09.134.162.226.215.093.053.205.08.336.08a.655.655 0 0 0 .334-.08.65.65 0 0 0 .224-.215c.058-.09.1-.194.126-.313a1.752 1.752 0 0 0 0-.748.94.94 0 0 0-.126-.31.657.657 0 0 0-.224-.21.667.667 0 0 0-.334-.08zm5.108 0a.675.675 0 0 0-.336.078.661.661 0 0 0-.226.211.91.91 0 0 0-.127.31c-.027.118-.04.242-.04.373s.013.256.04.375a.931.931 0 0 0 .127.313c.058.09.134.162.226.215.093.053.205.08.336.08.13 0 .243-.027.334-.08a.65.65 0 0 0 .224-.215c.058-.09.1-.194.126-.313a1.75 1.75 0 0 0 .04-.375c0-.13-.014-.255-.04-.373a.943.943 0 0 0-.126-.31.657.657 0 0 0-.224-.21.668.668 0 0 0-.334-.08zm-6.658.05l-.61.448.227.311.346-.266v1.362h.438v-1.856zm3.068 0l-.61.448.227.311.346-.266v1.362h.438v-1.856zm5.108 0l-.611.448.228.311.346-.266v1.362h.438v-1.856zm-9.712.322c.058 0 .105.02.14.062a.421.421 0 0 1 .083.151.96.96 0 0 1 .04.196 1.932 1.932 0 0 1 0 .386.954.954 0 0 1-.04.197.421.421 0 0 1-.083.152.176.176 0 0 1-.14.061.18.18 0 0 1-.141-.06.427.427 0 0 1-.085-.153.887.887 0 0 1-.041-.197 1.96 1.96 0 0 1 0-.386.893.893 0 0 1 .04-.196.42.42 0 0 1 .086-.151.181.181 0 0 1 .141-.062zm3.086 0c.058 0 .104.02.14.062a.421.421 0 0 1 .082.151.94.94 0 0 1 .04.196 1.906 1.906 0 0 1 0 .386.93.93 0 0 1-.04.197.421.421 0 0 1-.082.152.176.176 0 0 1-.14.061.18.18 0 0 1-.141-.06.42.42 0 0 1-.086-.153.846.846 0 0 1-.04-.197 1.965 1.965 0 0 1-.011-.195c0-.057.004-.121.01-.191a.849.849 0 0 1 .041-.196.42.42 0 0 1 .086-.151.182.182 0 0 1 .141-.062zm5.108 0c.058 0 .104.02.14.062a.421.421 0 0 1 .082.151.92.92 0 0 1 .04.196 1.963 1.963 0 0 1 0 .386.943.943 0 0 1-.04.197.421.421 0 0 1-.082.152.177.177 0 0 1-.14.061.18.18 0 0 1-.142-.06.437.437 0 0 1-.085-.153.95.95 0 0 1-.04-.197 1.965 1.965 0 0 1-.011-.195c0-.057.004-.121.01-.191a.959.959 0 0 1 .04-.196.47.47 0 0 1 .086-.151.181.181 0 0 1 .142-.062zm-1.684 1.814a.675.675 0 0 0-.336.079.66.66 0 0 0-.227.21.91.91 0 0 0-.127.31 1.731 1.731 0 0 0 0 .748.939.939 0 0 0 .127.314c.059.09.134.162.227.215.093.053.205.08.336.08a.66.66 0 0 0 .334-.08.648.648 0 0 0 .224-.215c.058-.09.1-.195.126-.314a1.737 1.737 0 0 0-.001-.747.928.928 0 0 0-.125-.31.65.65 0 0 0-.224-.211.668.668 0 0 0-.334-.079zm3.063 0a.676.676 0 0 0-.336.079.664.664 0 0 0-.227.21.906.906 0 0 0-.127.31 1.74 1.74 0 0 0 0 .748.936.936 0 0 0 .127.314.66.66 0 0 0 .227.215c.092.053.204.08.336.08a.654.654 0 0 0 .334-.08.648.648 0 0 0 .223-.215c.058-.09.1-.195.126-.314a1.74 1.74 0 0 0 0-.747.928.928 0 0 0-.126-.31.65.65 0 0 0-.223-.211.666.666 0 0 0-.334-.079zm-1.545.05l-.611.448.228.312.346-.267v1.363h.438v-1.856zm-1.518.323c.057 0 .104.02.14.061a.42.42 0 0 1 .082.152.91.91 0 0 1 .04.195 1.966 1.966 0 0 1 0 .387.951.951 0 0 1-.04.197.421.421 0 0 1-.082.152.177.177 0 0 1-.14.06.18.18 0 0 1-.142-.06.428.428 0 0 1-.085-.152.914.914 0 0 1-.04-.197 1.96 1.96 0 0 1-.011-.195c0-.058.003-.122.01-.192a.923.923 0 0 1 .041-.195c.02-.06.048-.11.085-.152a.181.181 0 0 1 .142-.061zm3.063 0c.057 0 .104.02.14.061a.42.42 0 0 1 .082.152.94.94 0 0 1 .04.195 1.91 1.91 0 0 1 0 .387.93.93 0 0 1-.04.197.422.422 0 0 1-.083.152.175.175 0 0 1-.14.06.18.18 0 0 1-.141-.06.423.423 0 0 1-.085-.152.907.907 0 0 1-.04-.197 1.95 1.95 0 0 1 0-.387.915.915 0 0 1 .04-.195c.02-.06.048-.11.085-.152a.182.182 0 0 1 .142-.061zm-9.713.185a.465.465 0 0 0-.232.055.456.456 0 0 0-.157.146.627.627 0 0 0-.089.215 1.168 1.168 0 0 0-.027.259c0 .09.009.177.027.26a.648.648 0 0 0 .089.216c.04.063.093.112.157.149a.459.459 0 0 0 .232.056c.09 0 .168-.02.231-.056a.45.45 0 0 0 .156-.149.67.67 0 0 0 .087-.217 1.218 1.218 0 0 0 0-.518.647.647 0 0 0-.087-.215.448.448 0 0 0-.156-.146.458.458 0 0 0-.23-.055zm1.052.035l-.423.31.158.217.24-.185v.944h.303v-1.286zm-1.052.224c.04 0 .073.014.097.042a.284.284 0 0 1 .057.105.69.69 0 0 1 .028.136c.004.049.007.092.007.133 0 .04-.003.086-.007.135a.684.684 0 0 1-.028.136.285.285 0 0 1-.057.105.123.123 0 0 1-.097.043.125.125 0 0 1-.098-.043.298.298 0 0 1-.059-.105.612.612 0 0 1-.028-.136 1.39 1.39 0 0 1 0-.268.62.62 0 0 1 .028-.136.297.297 0 0 1 .06-.105.125.125 0 0 1 .097-.042zm3.775 1.394a.463.463 0 0 0-.232.054.452.452 0 0 0-.157.146.621.621 0 0 0-.088.214 1.19 1.19 0 0 0 0 .519.641.641 0 0 0 .088.217.46.46 0 0 0 .157.15.458.458 0 0 0 .232.054.454.454 0 0 0 .232-.055.45.45 0 0 0 .155-.149.664.664 0 0 0 .087-.217 1.189 1.189 0 0 0 0-.519.642.642 0 0 0-.087-.214.446.446 0 0 0-.155-.146.459.459 0 0 0-.232-.054zm1.052.034l-.423.31.158.216.24-.185v.945h.303V22.68zm-1.052.223c.04 0 .073.014.098.043a.3.3 0 0 1 .057.105.643.643 0 0 1 .027.135 1.31 1.31 0 0 1 0 .268.654.654 0 0 1-.027.137.307.307 0 0 1-.057.105.124.124 0 0 1-.098.042.125.125 0 0 1-.098-.042.293.293 0 0 1-.059-.105.618.618 0 0 1-.028-.137 1.364 1.364 0 0 1 0-.268.612.612 0 0 1 .028-.135.287.287 0 0 1 .06-.105.123.123 0 0 1 .097-.043z"/></symbol>
+<symbol id="i-atlassian" viewBox="0 0 24 24"><path fill="currentColor" d="M7.12 11.084a.683.683 0 00-1.16.126L.075 22.974a.703.703 0 00.63 1.018h8.19a.678.678 0 00.63-.39c1.767-3.65.696-9.203-2.406-12.52zM11.434.386a15.515 15.515 0 00-.906 15.317l3.95 7.9a.703.703 0 00.628.388h8.19a.703.703 0 00.63-1.017L12.63.38a.664.664 0 00-1.196.006z"/></symbol>
+<symbol id="i-splunk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 13.5 2-2.5-2-2.5" /> <path d="m21 21-4.3-4.3" /> <path d="M9 8.5 7 11l2 2.5" /> <circle cx="11" cy="11" r="8" /></symbol>
+<symbol id="i-vmware" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" /> <path d="m7 16.5-4.74-2.85" /> <path d="m7 16.5 5-3" /> <path d="M7 16.5v5.17" /> <path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" /> <path d="m17 16.5-5-3" /> <path d="m17 16.5 4.74-2.85" /> <path d="M17 16.5v5.17" /> <path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" /> <path d="M12 8 7.26 5.15" /> <path d="m12 8 4.74-2.85" /> <path d="M12 13.5V8" /></symbol>
+<symbol id="i-cisco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="14" rx="2" /> <path d="M6.01 18H6" /> <path d="M10.01 18H10" /> <path d="M15 10v4" /> <path d="M17.84 7.17a4 4 0 0 0-5.66 0" /> <path d="M20.66 4.34a8 8 0 0 0-11.31 0" /></symbol>
+<symbol id="i-wazuh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-suricata" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="M12 8v4" /> <path d="M12 16h.01" /></symbol>
+<symbol id="i-sysmon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /></symbol>
+<symbol id="i-zeek" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1" /> <rect x="2" y="16" width="6" height="6" rx="1" /> <rect x="9" y="2" width="6" height="6" rx="1" /> <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" /> <path d="M12 12V8" /></symbol>
+<symbol id="i-nmap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34" /> <path d="M4 6h.01" /> <path d="M2.29 9.62A10 10 0 1 0 21.31 8.35" /> <path d="M16.24 7.76A6 6 0 1 0 8.23 16.67" /> <path d="M12 18h.01" /> <path d="M17.99 11.66A6 6 0 0 1 15.77 16.67" /> <circle cx="12" cy="12" r="2" /> <path d="m13.41 10.59 5.66-5.66" /></symbol>
+<symbol id="i-openvas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2" /> <path d="M17 3h2a2 2 0 0 1 2 2v2" /> <path d="M21 17v2a2 2 0 0 1-2 2h-2" /> <path d="M7 21H5a2 2 0 0 1-2-2v-2" /> <circle cx="12" cy="12" r="3" /> <path d="m16 16-1.9-1.9" /></symbol>
+<symbol id="i-tcpip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.586 5.414-5.172 5.172" /> <path d="m18.586 13.414-5.172 5.172" /> <path d="M6 12h12" /> <circle cx="12" cy="20" r="2" /> <circle cx="12" cy="4" r="2" /> <circle cx="20" cy="12" r="2" /> <circle cx="4" cy="12" r="2" /></symbol>
+<symbol id="i-binary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="4" height="6" rx="2" /> <rect x="6" y="4" width="4" height="6" rx="2" /> <path d="M6 20h4" /> <path d="M14 10h4" /> <path d="M6 14h2v6" /> <path d="M14 4h2v6" /></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></symbol>
+<symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h8.5a1 1 0 010 7h-11a1 1 0 000 7H15" /> <circle cx="18" cy="19" r="3" /> <circle cx="6" cy="5" r="3" /></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" /></symbol>
+<symbol id="i-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+<symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></symbol>
+<symbol id="i-terminal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19h8" /> <path d="m4 17 6-6-6-6" /></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" /> <path d="M7 17 17 7" /></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" /></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></symbol>
+<symbol id="i-bug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-9" /> <path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z" /> <path d="M14.12 3.88 16 2" /> <path d="M21 21a4 4 0 0 0-3.81-4" /> <path d="M21 5a4 4 0 0 1-3.55 3.97" /> <path d="M22 13h-4" /> <path d="M3 21a4 4 0 0 1 3.81-4" /> <path d="M3 5a4 4 0 0 0 3.55 3.97" /> <path d="M6 13H2" /> <path d="m8 2 1.88 1.88" /> <path d="M9 7.13V6a3 3 0 1 1 6 0v1.13" /></symbol>
+<symbol id="i-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2" /> <rect width="20" height="8" x="2" y="14" rx="2" ry="2" /> <line x1="6" x2="6.01" y1="6" y2="6" /> <line x1="6" x2="6.01" y1="18" y2="18" /></symbol>
+<symbol id="i-crosshair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /> <line x1="22" x2="18" y1="12" y2="12" /> <line x1="6" x2="2" y1="12" y2="12" /> <line x1="12" x2="12" y1="6" y2="2" /> <line x1="12" x2="12" y1="22" y2="18" /></symbol>
+</svg>
+
+<header>
+  <div class="container nav-inner">
+    <a href="#top" class="brand"><svg class="i"><use href="#i-shield"/></svg><b>ayush</b><span>@sec:~$</span></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg class="i"><use href="#i-menu"/></svg></button>
+    <nav class="nav" id="nav">
+      <a href="#projects">projects</a>
+      <a href="#toolkit">toolkit</a>
+      <a href="#about">about</a>
+      <a href="#certs">certs</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="tag-line"><svg class="i"><use href="#i-crosshair"/></svg> Security Portfolio</p>
+        <h1 class="name">Ayushkumar<br><span class="hl">Patel</span></h1>
+        <p class="role" aria-live="polite"><span class="pre">root@lab:~# </span><span id="roleText">Aspiring SOC Analyst</span><span class="caret" aria-hidden="true"></span></p>
+        <p class="tagline">CompTIA Security+ certified. I build isolated lab environments, generate attack traffic and trace it through SIEM and IDS logs.</p>
+        <div class="ctas">
+          <a href="#projects" class="btn btn-primary"><svg class="i"><use href="#i-terminal"/></svg> view_projects</a>
+          <a href="https://www.linkedin.com/in/ayushh-patell/" class="btn btn-ghost" target="_blank" rel="noopener"><svg class="i"><use href="#i-link"/></svg> LinkedIn</a>
+        </div>
+      </div>
+
+      <figure class="photo">
+        <div class="shot">
+          <span class="lock tl"></span><span class="lock tr"></span><span class="lock bl"></span><span class="lock br"></span>
+          <img src="headshot.jpg" alt="Ayush Patel" width="640" height="640">
+        </div>
+        <figcaption><span>ID: <b>A.PATEL</b></span><span>LOC: <b>WINNIPEG, MB</b></span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="metrics">
+    <div class="container">
+      <div class="metrics-grid frame">
+        <div class="metric"><p class="v">06</p><p class="l">VMs in my SOC home lab</p></div>
+        <div class="metric"><p class="v">10+</p><p class="l">Security &amp; systems tools</p></div>
+        <div class="metric"><p class="v">02</p><p class="l">Lab projects on GitHub</p></div>
+        <div class="metric"><p class="v">45h</p><p class="l">TryHackMe Cyber Security 101</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-head">
+        <p class="path"><span class="u">ayush@sec</span>:<span class="d">~/projects</span>$ ls -la</p>
+        <h2 class="section-title">Projects</h2>
+        <p class="section-lead">Hands-on labs, documented with logs, query output and configs.</p>
+      </div>
+
+      <div class="projects">
+        <article class="project frame">
+          <div class="win-bar"><i></i><i></i><i></i><span>soc-home-lab/README.md</span></div>
+          <pre class="topo"><span class="c"># VMnet2 · 192.168.152.0/24 · host-only</span>
+<span class="ip">.10</span> Splunk     <span class="ip">.20</span> Kali       <span class="ip">.30</span> Win11+Sysmon
+<span class="ip">.40</span> Ubuntu     <span class="ip">.50</span> Zeek/WS    <span class="ip">.60</span> Wazuh+Suricata</pre>
+          <div class="project-body">
+            <div class="chips">
+              <span class="chip"><svg class="i"><use href="#i-splunk"/></svg>Splunk</span>
+              <span class="chip"><svg class="i"><use href="#i-wazuh"/></svg>Wazuh</span>
+              <span class="chip"><svg class="i"><use href="#i-suricata"/></svg>Suricata</span>
+              <span class="chip"><svg class="i"><use href="#i-sysmon"/></svg>Sysmon</span>
+              <span class="chip"><svg class="i"><use href="#i-kali"/></svg>Kali</span>
+            </div>
+            <h3>Virtual Cybersecurity Home Lab: SIEM Monitoring &amp; Threat Detection</h3>
+            <p>An isolated SOC lab on VMware Workstation. A Kali attacker targets Windows and Linux hosts while logs flow into Splunk and Wazuh.</p>
+            <ul>
+              <li>Forwarded Sysmon and Linux auth logs to Splunk</li>
+              <li>Traced Nmap scans and SSH brute-force attempts in SIEM and IDS alerts</li>
+              <li>Ran Greenbone OpenVAS scans and reviewed findings</li>
+            </ul>
+            <a class="link" href="https://github.com/Ayushkumar-Patel/soc-home-lab" target="_blank" rel="noopener"><svg class="i"><use href="#i-github"/></svg> view on github <svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+
+        <article class="project frame">
+          <div class="win-bar"><i></i><i></i><i></i><span>enterprise-lan-wan/README.md</span></div>
+          <pre class="topo"><span class="c"># two-office campus network</span>
+[Site A] ──── WAN ──── [Site B]
+   │                      │
+ VLANs · IPv4 plan     VLANs · IPv4 plan</pre>
+          <div class="project-body">
+            <div class="chips">
+              <span class="chip"><svg class="i"><use href="#i-cisco"/></svg>Packet Tracer</span>
+              <span class="chip"><svg class="i"><use href="#i-route"/></svg>Routing</span>
+              <span class="chip"><svg class="i"><use href="#i-layers"/></svg>VLANs</span>
+              <span class="chip"><svg class="i"><use href="#i-binary"/></svg>IPv4</span>
+            </div>
+            <h3>Enterprise LAN-WAN Configuration</h3>
+            <p>A two-office campus network in Cisco Packet Tracer covering the CCNA topic set, with a full connections and IPv4 addressing plan.</p>
+            <ul>
+              <li>Designed the topology and addressing for both sites</li>
+              <li>Configured switching, routing and WAN links between offices</li>
+              <li>Published configs and the addressing spreadsheet</li>
+            </ul>
+            <a class="link" href="https://github.com/Ayushkumar-Patel/enterprise-lan-wan-configuration" target="_blank" rel="noopener"><svg class="i"><use href="#i-github"/></svg> view on github <svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="toolkit">
+    <div class="container">
+      <div class="section-head">
+        <p class="path"><span class="u">ayush@sec</span>:<span class="d">~/toolkit</span>$ cat tools.txt</p>
+        <h2 class="section-title">Toolkit</h2>
+        <p class="section-lead">Tools I've installed, configured and used in my labs.</p>
+      </div>
+      <div class="caps">
+        <article class="cap frame"><h3><span class="n">01</span> Monitoring &amp; Detection</h3>
+          <ul>
+            <li><svg class="i"><use href="#i-splunk"/></svg>Splunk Enterprise</li>
+            <li><svg class="i"><use href="#i-wazuh"/></svg>Wazuh</li>
+            <li><svg class="i"><use href="#i-suricata"/></svg>Suricata IDS</li>
+            <li><svg class="i"><use href="#i-sysmon"/></svg>Sysmon</li>
+            <li><svg class="i"><use href="#i-zeek"/></svg>Zeek</li>
+          </ul></article>
+        <article class="cap frame"><h3><span class="n">02</span> Offensive &amp; Vulnerability</h3>
+          <ul>
+            <li><svg class="i"><use href="#i-kali"/></svg>Kali Linux</li>
+            <li><svg class="i"><use href="#i-nmap"/></svg>Nmap</li>
+            <li><svg class="i"><use href="#i-openvas"/></svg>Greenbone OpenVAS</li>
+            <li><svg class="i"><use href="#i-wireshark"/></svg>Wireshark</li>
+          </ul></article>
+        <article class="cap frame"><h3><span class="n">03</span> Networking</h3>
+          <ul>
+            <li><svg class="i"><use href="#i-tcpip"/></svg>TCP/IP</li>
+            <li><svg class="i"><use href="#i-binary"/></svg>IPv4 subnetting</li>
+            <li><svg class="i"><use href="#i-layers"/></svg>VLANs</li>
+            <li><svg class="i"><use href="#i-route"/></svg>Routing &amp; switching</li>
+            <li><svg class="i"><use href="#i-cisco"/></svg>Cisco Packet Tracer</li>
+          </ul></article>
+        <article class="cap frame"><h3><span class="n">04</span> Systems &amp; ITSM</h3>
+          <ul>
+            <li><svg class="i"><use href="#i-monitor"/></svg>Windows 11</li>
+            <li><svg class="i"><use href="#i-ubuntu"/></svg>Ubuntu Server</li>
+            <li><svg class="i"><use href="#i-vmware"/></svg>VMware Workstation</li>
+            <li><svg class="i"><use href="#i-jira"/></svg>Jira Service Management</li>
+          </ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <p class="path"><span class="u">ayush@sec</span>:<span class="d">~</span>$ whoami</p>
+        <h2 class="section-title">Learning security by building it</h2>
+        <p>I'm a <strong>CompTIA Security+</strong> certified analyst-in-training based in Winnipeg. I learn by setting up real environments, attacking them and tracing what happened in the logs.</p>
+        <p>Every project here is documented with log excerpts, query output and configs, so you can see exactly what I did and how I found it.</p>
+      </div>
+      <div class="steps">
+        <div class="step frame"><div class="ico"><svg class="i"><use href="#i-server"/></svg></div>
+          <div><h3><span>01</span> Build</h3><p class="meta">VMware · Ubuntu · Windows 11 · Packet Tracer</p><p>Stand up isolated networks, endpoints and servers.</p></div></div>
+        <div class="step frame"><div class="ico"><svg class="i"><use href="#i-bug"/></svg></div>
+          <div><h3><span>02</span> Attack</h3><p class="meta">Kali · Nmap · OpenVAS</p><p>Generate real activity: scans, brute-force attempts and vulnerability checks.</p></div></div>
+        <div class="step frame"><div class="ico"><svg class="i"><use href="#i-eye"/></svg></div>
+          <div><h3><span>03</span> Detect</h3><p class="meta">Splunk · Wazuh · Suricata · Sysmon · Zeek</p><p>Collect logs and alerts, then trace each step of the attack.</p></div></div>
+        <div class="step frame"><div class="ico"><svg class="i"><use href="#i-file"/></svg></div>
+          <div><h3><span>04</span> Document</h3><p class="meta">GitHub</p><p>Write it up with the evidence so the work can be checked.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="certs">
+    <div class="container">
+      <div class="section-head">
+        <p class="path"><span class="u">ayush@sec</span>:<span class="d">~/certs</span>$ ls</p>
+        <h2 class="section-title">Certifications &amp; Education</h2>
+      </div>
+      <div class="certs">
+        <article class="cert frame">
+          <div class="cert-top"><div class="ico"><svg class="i"><use href="#i-comptia"/></svg></div><p class="type">Certification</p></div>
+          <h3>CompTIA Security+ (SY0-701)</h3>
+          <p>CompTIA · Apr 2026 – Apr 2029</p>
+          <p class="code">Verification code: e1b35c82a1a7476682cc20d127dd5e8c</p>
+          <div class="cert-actions">
+            <button class="view" type="button" data-img="certs/comptia-security-plus.png" data-title="comptia-security-plus.png"><svg class="i"><use href="#i-eye"/></svg>View</button>
+            <a class="verify" href="https://www.certmetrics.com/comptia/public/verification.aspx" target="_blank" rel="noopener">Verify <svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+        <article class="cert frame">
+          <div class="cert-top"><div class="ico"><svg class="i"><use href="#i-tryhackme"/></svg></div><p class="type">Learning Path</p></div>
+          <h3>Cyber Security 101</h3>
+          <p>TryHackMe · Aug 2026 · 45 hrs</p>
+          <p class="code">ID: THM-ZOZTSYA94N</p>
+          <div class="cert-actions">
+            <button class="view" type="button" data-img="certs/thm-cyber-security-101.png" data-title="thm-cyber-security-101.png"><svg class="i"><use href="#i-eye"/></svg>View</button>
+          </div>
+        </article>
+        <article class="cert frame">
+          <div class="cert-top"><div class="ico"><svg class="i"><use href="#i-atlassian"/></svg></div><p class="type">Professional Certificate</p></div>
+          <h3>Atlassian IT Service Management (ITSM)</h3>
+          <p>Atlassian · LinkedIn Learning · Apr 2026</p>
+          <p class="code">ITSM · IT monitoring · Change management</p>
+          <div class="cert-actions">
+            <button class="view" type="button" data-img="certs/atlassian-itsm.png" data-title="atlassian-itsm.png"><svg class="i"><use href="#i-eye"/></svg>View</button>
+          </div>
+        </article>
+        <article class="cert frame">
+          <div class="cert-top"><div class="ico"><svg class="i"><use href="#i-grad"/></svg></div><p class="type">Education</p></div>
+          <h3>Ontario College Diploma, Computer Systems Technician</h3>
+          <p>Durham College · With Honours · Jun 2025</p>
+          <div class="cert-actions">
+            <button class="view" type="button" data-img="certs/durham-diploma.png" data-title="durham-diploma.png"><svg class="i"><use href="#i-eye"/></svg>View</button>
+          </div>
+        </article>
+        <article class="cert frame">
+          <div class="cert-top"><div class="ico"><svg class="i"><use href="#i-grad"/></svg></div><p class="type">Education</p></div>
+          <h3>Diploma, Computer Engineering</h3>
+          <p>Gujarat Technological University (GTU) · Dean's Honours · Jun 2022</p>
+        </article>
+      </div>
+
+      <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+        <div class="modal-box frame">
+          <div class="modal-head">
+            <span id="modalTitle">certificate</span>
+            <button class="modal-close" id="modalClose" type="button" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button>
+          </div>
+          <img id="modalImg" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="cta frame">
+        <div>
+          <p class="path"><span class="u">ayush@sec</span>:<span class="d">~</span>$ ./connect.sh</p>
+          <h2 class="section-title">Let's talk security</h2>
+          <p>Questions about my labs or projects? Reach out.</p>
+          <p class="email"><svg class="i"><use href="#i-mail"/></svg>ayush23404@gmail.com</p>
+        </div>
+        <div class="ctas">
+          <a class="btn btn-primary" href="mailto:ayush23404@gmail.com"><svg class="i"><use href="#i-mail"/></svg> send_email</a>
+          <a class="btn btn-ghost" href="https://github.com/Ayushkumar-Patel" target="_blank" rel="noopener"><svg class="i"><use href="#i-github"/></svg> GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container foot">
+    <span>© <span id="yr">2026</span> Ayushkumar Patel</span>
+    <div class="foot-links">
+      <a href="https://www.linkedin.com/in/ayushh-patell/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="i"><use href="#i-link"/></svg></a>
+      <a href="https://github.com/Ayushkumar-Patel" target="_blank" rel="noopener" aria-label="GitHub"><svg class="i"><use href="#i-github"/></svg></a>
+      <a href="mailto:ayush23404@gmail.com" aria-label="Email"><svg class="i"><use href="#i-mail"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('menuBtn');
+  const nav = document.getElementById('nav');
+  const setMenu = (open) => {
+    nav.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    btn.querySelector('use').setAttribute('href', open ? '#i-x' : '#i-menu');
+  };
+  btn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Certificate viewer
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  let lastFocus = null;
+  const closeModal = () => { modal.hidden = true; modalImg.removeAttribute('src'); document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); };
+  document.querySelectorAll('.cert .view').forEach(b => b.addEventListener('click', () => {
+    lastFocus = b;
+    modalImg.src = b.dataset.img;
+    modalImg.alt = b.dataset.title;
+    modalTitle.textContent = '~/certs/' + b.dataset.title;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('modalClose').focus();
+  }));
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+  // Typewriter
+  const roles = ['Aspiring SOC Analyst', 'Cybersecurity Analyst', 'Threat Detection', 'Home Lab Builder'];
+  const el = document.getElementById('roleText');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let r = 0, i = roles[0].length, deleting = true;
+    const tick = () => {
+      if (deleting) {
+        i--;
+        if (i <= 0) { deleting = false; r = (r + 1) % roles.length; }
+      } else {
+        i++;
+        if (i >= roles[r].length) { deleting = true; el.textContent = roles[r]; return setTimeout(tick, 2200); }
+      }
+      el.textContent = roles[r].slice(0, Math.max(i, 0));
+      setTimeout(tick, deleting ? 40 : 75);
+    };
+    setTimeout(tick, 2200);
+  }
+</script>
+</body>
+</html>
