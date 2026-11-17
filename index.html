@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ayushkumar Patel | Cybersecurity Portfolio</title>
+<title>Ayush Patel | Cybersecurity Portfolio</title>
 <meta name="description" content="Ayush Patel — Security+ certified, based in Winnipeg. SOC home labs in SIEM monitoring, threat detection and network security.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,17 +11,18 @@
 <style>
   :root {
     color-scheme: dark;
-    --bg: #05080b;
-    --panel: #0a1016;
-    --panel-2: #0e161e;
-    --line: rgba(61, 220, 132, 0.14);
-    --line-strong: rgba(61, 220, 132, 0.32);
-    --text: #d9e4ec;
-    --muted: #8b9aa8;
-    --dim: #5b6b7a;
-    --accent: #3ddc84;
-    --accent-soft: rgba(61, 220, 132, 0.1);
-    --cyan: #38d6f5;
+    --bg: #040a17;
+    --panel: #081226;
+    --panel-2: #0c1830;
+    --line: rgba(59, 158, 255, 0.14);
+    --line-strong: rgba(59, 158, 255, 0.32);
+    --text: #dbe7f5;
+    --muted: #8ea3bf;
+    --dim: #5a6e8c;
+    --accent: #3b9eff;
+    --ok: #34d399;
+    --accent-soft: rgba(59, 158, 255, 0.1);
+    --cyan: #22d3ee;
     --amber: #f0b429;
     --radius: 8px;
     --nav-h: 64px;
@@ -34,17 +35,17 @@
   body {
     margin: 0; font-family: var(--sans); color: var(--text); line-height: 1.6; background-color: var(--bg);
     background-image:
-      radial-gradient(900px 480px at 85% -5%, rgba(61, 220, 132, 0.09), transparent 60%),
-      radial-gradient(700px 400px at 0% 30%, rgba(56, 214, 245, 0.05), transparent 60%),
-      linear-gradient(rgba(61, 220, 132, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(61, 220, 132, 0.035) 1px, transparent 1px);
+      radial-gradient(900px 480px at 85% -5%, rgba(59, 158, 255, 0.09), transparent 60%),
+      radial-gradient(700px 400px at 0% 30%, rgba(34, 211, 238, 0.06), transparent 60%),
+      linear-gradient(rgba(59, 158, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 158, 255, 0.035) 1px, transparent 1px);
     background-size: auto, auto, 44px 44px, 44px 44px;
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; text-decoration: none; }
   h1, h2, h3, p, figure { margin: 0; }
-  ::selection { background: var(--accent); color: #031208; }
+  ::selection { background: var(--accent); color: #020b1a; }
   .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 clamp(18px, 4vw, 32px); }
   .i { width: 16px; height: 16px; flex: none; display: inline-block; vertical-align: -3px; }
   .mono { font-family: var(--mono); }
@@ -64,15 +65,15 @@
     font-family: var(--mono); font-weight: 500; font-size: 14px; border: 1px solid var(--line-strong);
     transition: background .2s, border-color .2s, color .2s;
   }
-  .btn-primary { background: var(--accent); color: #031208; border-color: var(--accent); font-weight: 700; }
-  .btn-primary:hover { background: #63e89d; }
-  .btn-ghost { color: var(--text); background: rgba(10, 16, 22, 0.6); }
+  .btn-primary { background: var(--accent); color: #020b1a; border-color: var(--accent); font-weight: 700; }
+  .btn-primary:hover { background: #6cb6ff; }
+  .btn-ghost { color: var(--text); background: rgba(8, 18, 38, 0.6); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
   /* Nav */
   header {
     position: fixed; inset: 0 0 auto 0; height: var(--nav-h); z-index: 20;
-    background: rgba(5, 8, 11, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+    background: rgba(4, 10, 23, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
   }
   .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
   .brand { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 15px; }
@@ -100,7 +101,7 @@
   }
   .tag-line .i { width: 14px; height: 14px; }
   .name { font-family: var(--mono); font-weight: 800; font-size: clamp(36px, 6.2vw, 64px); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; color: #fff; }
-  .name .hl { color: var(--accent); }
+  .name .hl { color: var(--accent); text-shadow: 0 0 28px rgba(59, 158, 255, 0.45); }
   .role { font-family: var(--mono); font-size: clamp(15px, 2.1vw, 18px); margin-bottom: 18px; min-height: 1.6em; color: var(--cyan); }
   .role .pre { color: var(--accent); }
   .caret { display: inline-block; width: 9px; height: 1.05em; background: var(--accent); vertical-align: text-bottom; margin-left: 2px; animation: blink 1s steps(1) infinite; }
@@ -122,12 +123,23 @@
   }
   .photo figcaption b { color: var(--accent); font-weight: 500; }
 
+
+  /* Status line + scan */
+  .sysline { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 26px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .sysline b { color: var(--ok); font-weight: 500; }
+  .shot::after {
+    content: ""; position: absolute; left: 14px; right: 14px; top: 14px; height: 2px; pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent); box-shadow: 0 0 14px var(--cyan);
+    animation: scan 4.5s ease-in-out infinite; opacity: .85;
+  }
+  @keyframes scan { 0%, 100% { top: 14px; } 50% { top: calc(100% - 16px); } }
+  .photo img { box-shadow: 0 0 40px rgba(59, 158, 255, 0.15); }
   /* Metrics */
   .metrics { padding: 8px 0 24px; }
   .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
   .metric { padding: 22px 24px; border-right: 1px solid var(--line); }
   .metric:last-child { border-right: none; }
-  .metric .v { font-family: var(--mono); font-weight: 700; font-size: 34px; line-height: 1; margin-bottom: 8px; color: var(--accent); }
+  .metric .v { font-family: var(--mono); font-weight: 700; font-size: 34px; line-height: 1; margin-bottom: 8px; color: var(--accent); text-shadow: 0 0 18px rgba(59, 158, 255, 0.35); }
   .metric .l { color: var(--muted); font-size: 14px; }
 
   /* Sections */
@@ -144,11 +156,11 @@
   .project { display: flex; flex-direction: column; overflow: hidden; transition: border-color .2s; }
   .project:hover { border-color: var(--line-strong); }
   .win-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--panel-2); font-family: var(--mono); font-size: 12px; color: var(--dim); }
-  .win-bar i { width: 10px; height: 10px; border-radius: 50%; background: #1f2b36; }
-  .win-bar i:first-child { background: #f07178; } .win-bar i:nth-child(2) { background: var(--amber); } .win-bar i:nth-child(3) { background: var(--accent); }
+  .win-bar i { width: 10px; height: 10px; border-radius: 50%; background: #1c2a44; }
+  .win-bar i:first-child { background: #f07178; } .win-bar i:nth-child(2) { background: var(--amber); } .win-bar i:nth-child(3) { background: #3ddc84; }
   .win-bar span { margin-left: 8px; }
   .topo {
-    margin: 0; padding: 16px 18px; border-bottom: 1px solid var(--line); background: #070b0f;
+    margin: 0; padding: 16px 18px; border-bottom: 1px solid var(--line); background: #050d1c;
     font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.75; white-space: pre; overflow-x: auto;
   }
   .topo .ip { color: var(--accent); } .topo .c { color: var(--dim); }
@@ -209,7 +221,7 @@
   .cert-actions .view:hover, .cert-actions .verify:hover { border-color: var(--accent); }
   .cert-actions .i { width: 14px; height: 14px; vertical-align: 0; }
 
-  .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(2, 4, 6, 0.88); backdrop-filter: blur(4px); }
+  .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; background: rgba(2, 6, 15, 0.9); backdrop-filter: blur(4px); }
   .modal[hidden] { display: none; }
   .modal-box { width: min(920px, 100%); max-height: 92vh; overflow: auto; }
   .modal-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 13px; }
@@ -217,7 +229,7 @@
   .modal img { display: block; width: 100%; height: auto; background: #fff; }
 
   /* Contact */
-  .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(26px, 5vw, 42px); background: linear-gradient(135deg, rgba(61, 220, 132, 0.08), var(--panel) 55%); }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(26px, 5vw, 42px); background: linear-gradient(135deg, rgba(59, 158, 255, 0.08), var(--panel) 55%); }
   .cta .section-title { margin-bottom: 8px; }
   .cta p { color: var(--muted); }
   .cta .email { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 14px; color: var(--text); margin-top: 12px; }
@@ -251,7 +263,7 @@
     .ctas .btn { flex: 1; justify-content: center; }
     .brand span { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .caret { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .caret { animation: none; } .shot::after { animation: none; display: none; } }
 </style>
 </head>
 <body>
@@ -261,9 +273,9 @@
 <symbol id="i-ubuntu" viewBox="0 0 24 24"><path fill="currentColor" d="M17.61.455a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zM12.92.8C8.923.777 5.137 2.941 3.148 6.451a4.5 4.5 0 0 1 .26-.007 4.92 4.92 0 0 1 2.585.737A8.316 8.316 0 0 1 12.688 3.6 4.944 4.944 0 0 1 13.723.834 11.008 11.008 0 0 0 12.92.8zm9.226 4.994a4.915 4.915 0 0 1-1.918 2.246 8.36 8.36 0 0 1-.273 8.303 4.89 4.89 0 0 1 1.632 2.54 11.156 11.156 0 0 0 .559-13.089zM3.41 7.932A3.41 3.41 0 0 0 0 11.342a3.41 3.41 0 0 0 3.41 3.409 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zm2.027 7.866a4.908 4.908 0 0 1-2.915.358 11.1 11.1 0 0 0 7.991 6.698 11.234 11.234 0 0 0 2.422.249 4.879 4.879 0 0 1-.999-2.85 8.484 8.484 0 0 1-.836-.136 8.304 8.304 0 0 1-5.663-4.32zm11.405.928a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41z"/></symbol>
 <symbol id="i-jira" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></symbol>
 <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
-<symbol id="i-comptia" viewBox="0 0 24 24"><path fill="currentColor" d="M11.8292 11.7067v1.8524a.608.608 0 0 1-.6016-.6136v-1.2366a.5728.5728 0 0 0-1.1428 0v1.8502a.5988.5988 0 0 1-.5998-.5978v-1.2524a.5746.5746 0 0 0-1.1455 0v1.2431a.608.608 0 0 1-.5998.6071V11.709c.0097-.6352.5325-1.1422 1.1676-1.1325h.0013c.331-.0046.6486.1302.8754.3713a1.1752 1.1752 0 0 1 .868-.3713c.6372-.013 1.1642.493 1.1772 1.1303zm7.0156-2.2917v3.563a.597.597 0 0 0 .6006.5811v-3.563a.5969.5969 0 0 0-.6006-.5811zM24 13.5258c-.324.0269-.675-.0697-.8011-.3435l-.3185-.6852h-2.1306l-.3157.7037c-.1494.2785-.544.3667-.8476.3667l1.738-3.8063a.5292.5292 0 0 1 .4762-.3435.5367.5367 0 0 1 .481.3435L24 13.5258zm-1.3759-1.6182-.8059-1.7671-.8038 1.767h1.6097zm-19.166.6387a1.8463 1.8463 0 0 1-1.1817.4373c-.9312 0-1.6888-.6824-1.6888-1.5133s.7604-1.5058 1.6888-1.5058c.501.0002.98.2055 1.3257.5682a.5812.5812 0 0 0 .7417.0827c-.362-.7502-1.1763-1.2376-2.0693-1.2376C1.0212 9.3778 0 10.3164 0 11.4722c0 1.1558 1.0175 2.0953 2.2745 2.0953a2.3846 2.3846 0 0 0 1.2885-.3713c.2605-.162.4823-.379.6499-.636a.5886.5886 0 0 0-.7548-.0139zm11.43-2.539h1.2877v2.9512a.5904.5904 0 0 0 .5728.6006h.0278v-3.5518h1.284a.5941.5941 0 0 0 .5932-.5932h-4.3503a.5904.5904 0 0 0 .5848.5932zm-7.3108 2.0665c0 .8364-.726 1.4853-1.6507 1.4853-.9283 0-1.6505-.6498-1.6505-1.4853s.725-1.4947 1.6505-1.4947c.9256 0 1.6507.6583 1.6507 1.4947zm-.6007-.0028c0-.5004-.4641-.894-1.05-.894-.5876 0-1.0509.3927-1.0509.894 0 .5013.4643.8875 1.051.8875s1.05-.387 1.05-.8875zm6.7975-1.5002c-.9506 0-1.6395.6433-1.6395 1.5178v2.5335a.596.596 0 0 0 .6016-.5857v-1.9496c0-.6313.5162-.9172 1.038-.9172.5486 0 .9812.3982.9812.9051 0 .4874-.4326.8754-.9813.8754-.3686 0-.6452-.0928-.8132-.2785v.0056a.7503.7503 0 0 0-.0381.1068.596.596 0 0 0 .4112.7241c.1462.0314.2953.0463.4447.0446.8885 0 1.581-.6508 1.5736-1.4761a1.4647 1.4647 0 0 0-.4642-1.075 1.642 1.642 0 0 0-1.114-.4308z"/></symbol>
 <symbol id="i-tryhackme" viewBox="0 0 24 24"><path fill="currentColor" d="M10.705 0C7.54 0 4.902 2.285 4.349 5.291a4.525 4.525 0 0 0-4.107 4.5 4.525 4.525 0 0 0 4.52 4.52h6.761a.625.625 0 1 0 0-1.25H4.761a3.273 3.273 0 0 1-3.27-3.27A3.273 3.273 0 0 1 6.59 7.08a.625.625 0 0 0 .7-1.035 4.488 4.488 0 0 0-1.68-.69 5.223 5.223 0 0 1 5.096-4.104 5.221 5.221 0 0 1 5.174 4.57 4.489 4.489 0 0 0-.488.305.625.625 0 1 0 .731 1.013 3.245 3.245 0 0 1 1.912-.616 3.278 3.278 0 0 1 3.203 2.61.625.625 0 0 0 1.225-.251 4.533 4.533 0 0 0-4.428-3.61 4.54 4.54 0 0 0-.958.105C16.556 2.328 13.9 0 10.705 0zm5.192 10.64a.925.925 0 0 0-.462.108.913.913 0 0 0-.313.29 1.27 1.27 0 0 0-.175.427 2.39 2.39 0 0 0-.054.514c0 .181.018.353.054.517.036.164.095.307.175.43a.899.899 0 0 0 .313.297c.127.073.281.11.462.11.18 0 .334-.037.46-.11a.897.897 0 0 0 .309-.296c.08-.124.137-.267.173-.431.036-.164.054-.336.054-.517 0-.18-.018-.352-.054-.514a1.271 1.271 0 0 0-.173-.426.901.901 0 0 0-.309-.291.917.917 0 0 0-.46-.108zm6.486 0a.925.925 0 0 0-.462.108.913.913 0 0 0-.313.29 1.27 1.27 0 0 0-.175.427 2.39 2.39 0 0 0-.053.514c0 .181.017.353.053.517.036.164.095.307.175.43a.899.899 0 0 0 .313.297c.127.073.281.11.462.11.18 0 .334-.037.46-.11a.897.897 0 0 0 .31-.296c.078-.124.136-.267.172-.431.036-.164.054-.336.054-.517 0-.18-.018-.352-.054-.514a1.271 1.271 0 0 0-.173-.426.901.901 0 0 0-.308-.291.916.916 0 0 0-.461-.108zm-8.537.068l-.84.618.313.43.476-.368v1.877h.603v-2.557zm6.486 0l-.841.618.314.43.477-.368v1.877h.603v-2.557zm-4.435.445c.08 0 .143.028.193.084.05.057.087.127.114.21.026.083.044.173.054.269a2.541 2.541 0 0 1 0 .533c-.01.097-.028.187-.054.27a.584.584 0 0 1-.114.21.243.243 0 0 1-.193.085.248.248 0 0 1-.195-.086.584.584 0 0 1-.118-.209 1.245 1.245 0 0 1-.056-.27 2.645 2.645 0 0 1 0-.533c.01-.096.029-.186.056-.27a.583.583 0 0 1 .118-.209.25.25 0 0 1 .195-.084zm6.486 0c.08 0 .144.028.193.084.05.057.087.127.114.21.027.083.044.173.054.269a2.541 2.541 0 0 1 0 .533c-.01.097-.027.187-.054.27a.584.584 0 0 1-.114.21.243.243 0 0 1-.193.085.249.249 0 0 1-.195-.086.581.581 0 0 1-.117-.209 1.245 1.245 0 0 1-.056-.27 2.642 2.642 0 0 1 0-.533c.01-.096.028-.186.056-.27a.58.58 0 0 1 .117-.209.25.25 0 0 1 .195-.084zm-2.191 3.51a.93.93 0 0 0-.463.109.908.908 0 0 0-.312.291c-.08.122-.139.263-.175.426a2.383 2.383 0 0 0-.054.514c0 .18.018.353.054.516.036.164.094.308.175.432a.91.91 0 0 0 .312.296.92.92 0 0 0 .463.11c.18 0 .333-.037.46-.11a.892.892 0 0 0 .308-.296 1.32 1.32 0 0 0 .174-.432c.036-.163.054-.335.054-.516 0-.18-.018-.352-.054-.514a1.274 1.274 0 0 0-.174-.426.89.89 0 0 0-.309-.291.918.918 0 0 0-.46-.108zm-6.402.07l-.841.617.314.43.476-.369v1.878h.604v-2.557zm2.125 0l-.841.617.314.43.477-.369v1.878h.603v-2.557zm2.116 0l-.84.617.313.43.477-.369v1.878h.603v-2.557zm2.16.443c.08 0 .144.028.194.085a.605.605 0 0 1 .114.21c.026.083.044.172.053.269a2.639 2.639 0 0 1 0 .532 1.28 1.28 0 0 1-.053.27.585.585 0 0 1-.114.21.244.244 0 0 1-.193.085.25.25 0 0 1-.196-.085.589.589 0 0 1-.117-.21 1.245 1.245 0 0 1-.056-.27 2.597 2.597 0 0 1 0-.532c.01-.097.028-.186.056-.27a.589.589 0 0 1 .117-.209.249.249 0 0 1 .196-.085zm-6.729 3.073a.676.676 0 0 0-.335.078.661.661 0 0 0-.227.211.91.91 0 0 0-.127.31c-.027.118-.04.242-.04.373s.013.256.04.375a.93.93 0 0 0 .127.313.65.65 0 0 0 .227.215c.092.053.204.08.335.08a.655.655 0 0 0 .334-.08.65.65 0 0 0 .225-.215c.057-.09.1-.194.125-.313a1.75 1.75 0 0 0 .04-.375c0-.13-.014-.255-.04-.373a.931.931 0 0 0-.125-.31.658.658 0 0 0-.225-.21.667.667 0 0 0-.334-.08zm3.086 0a.675.675 0 0 0-.336.078.661.661 0 0 0-.226.211.907.907 0 0 0-.127.31 1.69 1.69 0 0 0-.04.373c0 .131.013.256.04.375a.928.928 0 0 0 .127.313c.058.09.134.162.226.215.093.053.205.08.336.08a.655.655 0 0 0 .334-.08.65.65 0 0 0 .224-.215c.058-.09.1-.194.126-.313a1.752 1.752 0 0 0 0-.748.94.94 0 0 0-.126-.31.657.657 0 0 0-.224-.21.667.667 0 0 0-.334-.08zm5.108 0a.675.675 0 0 0-.336.078.661.661 0 0 0-.226.211.91.91 0 0 0-.127.31c-.027.118-.04.242-.04.373s.013.256.04.375a.931.931 0 0 0 .127.313c.058.09.134.162.226.215.093.053.205.08.336.08.13 0 .243-.027.334-.08a.65.65 0 0 0 .224-.215c.058-.09.1-.194.126-.313a1.75 1.75 0 0 0 .04-.375c0-.13-.014-.255-.04-.373a.943.943 0 0 0-.126-.31.657.657 0 0 0-.224-.21.668.668 0 0 0-.334-.08zm-6.658.05l-.61.448.227.311.346-.266v1.362h.438v-1.856zm3.068 0l-.61.448.227.311.346-.266v1.362h.438v-1.856zm5.108 0l-.611.448.228.311.346-.266v1.362h.438v-1.856zm-9.712.322c.058 0 .105.02.14.062a.421.421 0 0 1 .083.151.96.96 0 0 1 .04.196 1.932 1.932 0 0 1 0 .386.954.954 0 0 1-.04.197.421.421 0 0 1-.083.152.176.176 0 0 1-.14.061.18.18 0 0 1-.141-.06.427.427 0 0 1-.085-.153.887.887 0 0 1-.041-.197 1.96 1.96 0 0 1 0-.386.893.893 0 0 1 .04-.196.42.42 0 0 1 .086-.151.181.181 0 0 1 .141-.062zm3.086 0c.058 0 .104.02.14.062a.421.421 0 0 1 .082.151.94.94 0 0 1 .04.196 1.906 1.906 0 0 1 0 .386.93.93 0 0 1-.04.197.421.421 0 0 1-.082.152.176.176 0 0 1-.14.061.18.18 0 0 1-.141-.06.42.42 0 0 1-.086-.153.846.846 0 0 1-.04-.197 1.965 1.965 0 0 1-.011-.195c0-.057.004-.121.01-.191a.849.849 0 0 1 .041-.196.42.42 0 0 1 .086-.151.182.182 0 0 1 .141-.062zm5.108 0c.058 0 .104.02.14.062a.421.421 0 0 1 .082.151.92.92 0 0 1 .04.196 1.963 1.963 0 0 1 0 .386.943.943 0 0 1-.04.197.421.421 0 0 1-.082.152.177.177 0 0 1-.14.061.18.18 0 0 1-.142-.06.437.437 0 0 1-.085-.153.95.95 0 0 1-.04-.197 1.965 1.965 0 0 1-.011-.195c0-.057.004-.121.01-.191a.959.959 0 0 1 .04-.196.47.47 0 0 1 .086-.151.181.181 0 0 1 .142-.062zm-1.684 1.814a.675.675 0 0 0-.336.079.66.66 0 0 0-.227.21.91.91 0 0 0-.127.31 1.731 1.731 0 0 0 0 .748.939.939 0 0 0 .127.314c.059.09.134.162.227.215.093.053.205.08.336.08a.66.66 0 0 0 .334-.08.648.648 0 0 0 .224-.215c.058-.09.1-.195.126-.314a1.737 1.737 0 0 0-.001-.747.928.928 0 0 0-.125-.31.65.65 0 0 0-.224-.211.668.668 0 0 0-.334-.079zm3.063 0a.676.676 0 0 0-.336.079.664.664 0 0 0-.227.21.906.906 0 0 0-.127.31 1.74 1.74 0 0 0 0 .748.936.936 0 0 0 .127.314.66.66 0 0 0 .227.215c.092.053.204.08.336.08a.654.654 0 0 0 .334-.08.648.648 0 0 0 .223-.215c.058-.09.1-.195.126-.314a1.74 1.74 0 0 0 0-.747.928.928 0 0 0-.126-.31.65.65 0 0 0-.223-.211.666.666 0 0 0-.334-.079zm-1.545.05l-.611.448.228.312.346-.267v1.363h.438v-1.856zm-1.518.323c.057 0 .104.02.14.061a.42.42 0 0 1 .082.152.91.91 0 0 1 .04.195 1.966 1.966 0 0 1 0 .387.951.951 0 0 1-.04.197.421.421 0 0 1-.082.152.177.177 0 0 1-.14.06.18.18 0 0 1-.142-.06.428.428 0 0 1-.085-.152.914.914 0 0 1-.04-.197 1.96 1.96 0 0 1-.011-.195c0-.058.003-.122.01-.192a.923.923 0 0 1 .041-.195c.02-.06.048-.11.085-.152a.181.181 0 0 1 .142-.061zm3.063 0c.057 0 .104.02.14.061a.42.42 0 0 1 .082.152.94.94 0 0 1 .04.195 1.91 1.91 0 0 1 0 .387.93.93 0 0 1-.04.197.422.422 0 0 1-.083.152.175.175 0 0 1-.14.06.18.18 0 0 1-.141-.06.423.423 0 0 1-.085-.152.907.907 0 0 1-.04-.197 1.95 1.95 0 0 1 0-.387.915.915 0 0 1 .04-.195c.02-.06.048-.11.085-.152a.182.182 0 0 1 .142-.061zm-9.713.185a.465.465 0 0 0-.232.055.456.456 0 0 0-.157.146.627.627 0 0 0-.089.215 1.168 1.168 0 0 0-.027.259c0 .09.009.177.027.26a.648.648 0 0 0 .089.216c.04.063.093.112.157.149a.459.459 0 0 0 .232.056c.09 0 .168-.02.231-.056a.45.45 0 0 0 .156-.149.67.67 0 0 0 .087-.217 1.218 1.218 0 0 0 0-.518.647.647 0 0 0-.087-.215.448.448 0 0 0-.156-.146.458.458 0 0 0-.23-.055zm1.052.035l-.423.31.158.217.24-.185v.944h.303v-1.286zm-1.052.224c.04 0 .073.014.097.042a.284.284 0 0 1 .057.105.69.69 0 0 1 .028.136c.004.049.007.092.007.133 0 .04-.003.086-.007.135a.684.684 0 0 1-.028.136.285.285 0 0 1-.057.105.123.123 0 0 1-.097.043.125.125 0 0 1-.098-.043.298.298 0 0 1-.059-.105.612.612 0 0 1-.028-.136 1.39 1.39 0 0 1 0-.268.62.62 0 0 1 .028-.136.297.297 0 0 1 .06-.105.125.125 0 0 1 .097-.042zm3.775 1.394a.463.463 0 0 0-.232.054.452.452 0 0 0-.157.146.621.621 0 0 0-.088.214 1.19 1.19 0 0 0 0 .519.641.641 0 0 0 .088.217.46.46 0 0 0 .157.15.458.458 0 0 0 .232.054.454.454 0 0 0 .232-.055.45.45 0 0 0 .155-.149.664.664 0 0 0 .087-.217 1.189 1.189 0 0 0 0-.519.642.642 0 0 0-.087-.214.446.446 0 0 0-.155-.146.459.459 0 0 0-.232-.054zm1.052.034l-.423.31.158.216.24-.185v.945h.303V22.68zm-1.052.223c.04 0 .073.014.098.043a.3.3 0 0 1 .057.105.643.643 0 0 1 .027.135 1.31 1.31 0 0 1 0 .268.654.654 0 0 1-.027.137.307.307 0 0 1-.057.105.124.124 0 0 1-.098.042.125.125 0 0 1-.098-.042.293.293 0 0 1-.059-.105.618.618 0 0 1-.028-.137 1.364 1.364 0 0 1 0-.268.612.612 0 0 1 .028-.135.287.287 0 0 1 .06-.105.123.123 0 0 1 .097-.043z"/></symbol>
 <symbol id="i-atlassian" viewBox="0 0 24 24"><path fill="currentColor" d="M7.12 11.084a.683.683 0 00-1.16.126L.075 22.974a.703.703 0 00.63 1.018h8.19a.678.678 0 00.63-.39c1.767-3.65.696-9.203-2.406-12.52zM11.434.386a15.515 15.515 0 00-.906 15.317l3.95 7.9a.703.703 0 00.628.388h8.19a.703.703 0 00.63-1.017L12.63.38a.664.664 0 00-1.196.006z"/></symbol>
+<symbol id="i-comptia" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /> <path d="m16 9-5.5 5.5L8 12" /></symbol>
 <symbol id="i-splunk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 13.5 2-2.5-2-2.5" /> <path d="m21 21-4.3-4.3" /> <path d="M9 8.5 7 11l2 2.5" /> <circle cx="11" cy="11" r="8" /></symbol>
 <symbol id="i-vmware" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z" /> <path d="m7 16.5-4.74-2.85" /> <path d="m7 16.5 5-3" /> <path d="M7 16.5v5.17" /> <path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z" /> <path d="m17 16.5-5-3" /> <path d="m17 16.5 4.74-2.85" /> <path d="M17 16.5v5.17" /> <path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z" /> <path d="M12 8 7.26 5.15" /> <path d="m12 8 4.74-2.85" /> <path d="M12 13.5V8" /></symbol>
 <symbol id="i-cisco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="14" rx="2" /> <path d="M6.01 18H6" /> <path d="M10.01 18H10" /> <path d="M15 10v4" /> <path d="M17.84 7.17a4 4 0 0 0-5.66 0" /> <path d="M20.66 4.34a8 8 0 0 0-11.31 0" /></symbol>
@@ -321,6 +333,7 @@
           <a href="#projects" class="btn btn-primary"><svg class="i"><use href="#i-terminal"/></svg> view_projects</a>
           <a href="https://www.linkedin.com/in/ayushh-patell/" class="btn btn-ghost" target="_blank" rel="noopener"><svg class="i"><use href="#i-link"/></svg> LinkedIn</a>
         </div>
+        <div class="sysline" aria-hidden="true"><span><b>[ OK ]</b> SIEM online</span><span><b>[ OK ]</b> IDS active</span><span><b>[ OK ]</b> Logs ingesting</span></div>
       </div>
 
       <figure class="photo">
@@ -539,7 +552,7 @@
           <p class="email"><svg class="i"><use href="#i-mail"/></svg>ayushkumarpatel203@gmail.com</p>
         </div>
         <div class="ctas">
-          <a class="btn btn-primary" href="mailto:ayush23404@gmail.com"><svg class="i"><use href="#i-mail"/></svg> send_email</a>
+          <a class="btn btn-primary" href="mailto:ayushkumarPatel203@gmail.com"><svg class="i"><use href="#i-mail"/></svg> send_email</a>
           <a class="btn btn-ghost" href="https://github.com/Ayushkumar-Patel" target="_blank" rel="noopener"><svg class="i"><use href="#i-github"/></svg> GitHub</a>
         </div>
       </div>
